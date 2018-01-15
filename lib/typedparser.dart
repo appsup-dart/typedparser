@@ -67,7 +67,7 @@ Parser<T> failure<T>([String message]) => new Parser(petit.failure(message));
 
 /// Returns a parser that is not defined, but that can be set at a later
 /// point in time.
-SettableParser undefined([String message = 'undefined parser']) {
+SettableParser<T> undefined<T>([String message = 'undefined parser']) {
   return failure(message).settable();
 }
 
@@ -75,10 +75,10 @@ SettableParser undefined([String message = 'undefined parser']) {
 /// point in time.
 class SettableParser<T> extends Parser<T> {
 
-  SettableParser(petit.Parser pParser) : super(pParser);
+  SettableParser(petit.SettableParser pParser) : super(pParser);
 
   /// Sets the receiver to delegate to [parser].
-  void set(Parser<T> parser) => _parser.replace(_parser.children[0], parser._parser);
+  void set(Parser<T> parser) => (_parser as petit.SettableParser).set(parser._parser);
 
 }
 
@@ -244,7 +244,7 @@ class Parser<T> {
 
   /// Returns a parser that points to the receiver, but can be changed to point
   /// to something else at a later point in time.
-  SettableParser settable() => new SettableParser(_parser);
+  SettableParser settable() => new SettableParser(_parser.settable());
 
   /// Returns a parser that maps the produced output of `this` parser to an
   /// object of type [S].
