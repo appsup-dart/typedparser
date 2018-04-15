@@ -68,7 +68,7 @@ Parser<T> failure<T>([String message]) => new Parser(petit.failure(message));
 /// Returns a parser that is not defined, but that can be set at a later
 /// point in time.
 SettableParser<T> undefined<T>([String message = 'undefined parser']) {
-  return failure(message).settable();
+  return failure<T>(message).settable();
 }
 
 /// A parser that is not defined, but that can be set at a later
@@ -244,7 +244,7 @@ class Parser<T> {
 
   /// Returns a parser that points to the receiver, but can be changed to point
   /// to something else at a later point in time.
-  SettableParser settable() => new SettableParser(_parser.settable());
+  SettableParser<T> settable() => new SettableParser(_parser.settable());
 
   /// Returns a parser that maps the produced output of `this` parser to an
   /// object of type [S].
@@ -291,7 +291,7 @@ class Parser<T> {
 
 class ListParser<T> extends Parser<List<T>> {
 
-  ListParser(petit.Parser parser) : super(parser);
+  ListParser(petit.Parser parser) : super(parser.map((v)=>new List<T>.from(v)));
 
   /// Returns a parser that transform a successful parse result by returning
   /// the element at [index] of a list. A negative index can be used to access

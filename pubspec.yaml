@@ -1,6 +1,6 @@
 name: typedparser
 description: A wrapper around petitparser that adds type parameters.
-version: 0.1.1
+version: 0.1.2
 author: Rik Bellens <rik.bellens@appsup.be>
 homepage: https://github.com/appsup-dart/typedparser
 
@@ -8,7 +8,7 @@ environment:
   sdk: '>=1.20.1 <2.0.0'
 
 dependencies:
-  petitparser: ^1.6.1
+  petitparser: ^1.7.0
 
 dev_dependencies:
   test: ^0.12.0
